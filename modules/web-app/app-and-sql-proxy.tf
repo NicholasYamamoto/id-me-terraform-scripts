@@ -125,8 +125,8 @@ resource "kubernetes_deployment" "id_me_hello_world_app_deployment" {
           "cloud.google.com/gke-nodepool" = "${var.gke_node_pool}"
         }
 
-        #TODO: I think I need to replace this with the CloudSQL service account
-        service_account_name = var.app_name
+        # Use the KSA/GSA-binded account
+        service_account_name = var.kubernetes_service_account
       }
     }
 

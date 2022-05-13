@@ -6,7 +6,7 @@ data "google_container_cluster" "id-me-hello-world-app-k8s-cluster" {
   location = var.region
 }
 
-# Create the Kubernetes Secrets used to connect to the CloudSQL instance from my app
+# Create a k8s secret to store the rails_secret_key_base required to connect to SQL database in Production environment
 resource "kubernetes_secret" "ruby-credentials" {
   metadata {
     name = "ruby-credentials"
@@ -17,6 +17,7 @@ resource "kubernetes_secret" "ruby-credentials" {
   type = "Opaque"
 }
 
+# Create a k8s secret to store the CloudSQL database credentials
 resource "kubernetes_secret" "cloudsql-db-credentials" {
   metadata {
     name = "cloudsql-db-credentials"

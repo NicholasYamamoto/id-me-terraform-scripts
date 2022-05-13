@@ -33,6 +33,11 @@ variable "cluster_name" {
   description = "The name given to the cluster"
 }
 
+variable "kubernetes_service_account" {
+  type        = string
+  description = "The name of the Kubernetes Service Account binded to a GSA"
+}
+
 variable "database_name" {
   type        = string
   description = "CloudSQL instance database name"
