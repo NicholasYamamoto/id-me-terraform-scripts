@@ -24,22 +24,21 @@ resource "google_container_cluster" "primary" {
   }
 
   # Enabling node auto-provisioning
-  # But disabling it for demo purposes!
-  # cluster_autoscaling {
-  #   enabled = true
-  #   resource_limits {
-  #     resource_type = "cpu"
-  #     minimum       = 2
-  #     maximum       = 8
-  #   }
+  cluster_autoscaling {
+    enabled = true
+    resource_limits {
+      resource_type = "cpu"
+      minimum       = 2
+      maximum       = 8
+    }
 
-  #   resource_limits {
-  #     resource_type = "memory"
-  #     minimum       = 10
-  #     maximum       = 1000
-  #   }
+    resource_limits {
+      resource_type = "memory"
+      minimum       = 10
+      maximum       = 1000
+    }
 
-  # }
+  }
 
   # Enabling Workload Identity Federation for the cluster to improve overall security
   workload_identity_config {
@@ -60,7 +59,7 @@ resource "google_container_cluster" "primary" {
 
 }
 
-# Create a Separately-managed Node Pool to follow best practices
+# Creating a Separately-managed Node Pool to follow GCP best practices
 resource "google_container_node_pool" "primary_nodes" {
   name               = var.gke_node_pool
   location           = var.region
@@ -90,11 +89,25 @@ resource "google_container_node_pool" "primary_nodes" {
       disable-legacy-endpoints = "true"
     }
 
-    service_account = google_service_account.gsa.email
+    service_account = google_service_account.gke-sa.email
     oauth_scopes = [
       "https://www.googleapis.com/auth/cloud-platform"
     ]
 
     tags = ["gke-node", "${var.cluster_name}"]
   }
+}
+
+# Creating a GKE Service Account for the cluster
+resource "google_service_account" "gke-sa" {
+  account_id   = "${var.app_name}-gke-sa"
+  display_name = "GKE Service Account"
+  project      = var.project_id
+}
+
+# Adding the GKE Service Account to the project
+resource "google_project_iam_member" "service-account" {
+  project = var.project_id
+  role    = "roles/artifactregistry.writer"
+  member  = "serviceAccount:${google_service_account.gke-sa.email}"
 }

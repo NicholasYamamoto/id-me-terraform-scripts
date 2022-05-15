@@ -1,8 +1,8 @@
 # Creating the Deployment object for my app and a CloudSQL Proxy to run as a sidecar container
-resource "kubernetes_deployment" "id_me_hello_world_app_deployment" {
+resource "kubernetes_deployment" "app-deployment" {
   metadata {
     name      = "id-me-hello-world-app-deployment"
-    namespace = var.namespace
+    namespace = var.k8s_namespace
   }
   spec {
     replicas = 1
@@ -126,7 +126,7 @@ resource "kubernetes_deployment" "id_me_hello_world_app_deployment" {
         }
 
         # Use the KSA/GSA-binded account
-        service_account_name = var.kubernetes_service_account
+        service_account_name = var.k8s_service_account
       }
     }
 

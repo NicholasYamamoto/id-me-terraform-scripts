@@ -18,7 +18,7 @@ variable "app_name" {
   description = "The name of the application"
 }
 
-variable "namespace" {
+variable "k8s_namespace" {
   type        = string
   description = "The namespace of the cluster"
 }
@@ -31,4 +31,9 @@ variable "machine_type" {
 variable "gke_node_pool" {
   type        = string
   description = "The corresponding Node Pool in GKE"
+}
+
+variable "k8s_service_account" {
+  type        = string
+  description = "The name of the Kubernetes Service Account binded to a GSA"
 }

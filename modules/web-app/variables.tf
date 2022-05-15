@@ -13,7 +13,7 @@ variable "gke_node_pool" {
   description = "The corresponding Node Pool in GKE"
 }
 
-variable "namespace" {
+variable "k8s_namespace" {
   type        = string
   description = "The namespace of the cluster"
 }
@@ -33,7 +33,7 @@ variable "cluster_name" {
   description = "The name given to the cluster"
 }
 
-variable "kubernetes_service_account" {
+variable "k8s_service_account" {
   type        = string
   description = "The name of the Kubernetes Service Account binded to a GSA"
 }

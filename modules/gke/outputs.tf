@@ -17,8 +17,3 @@ output "kubernetes_cluster_host" {
   value       = google_container_cluster.primary.endpoint
   description = "The GKE cluster host"
 }
-
-output "ksa_binded_gsa_account_id" {
-  value       = google_service_account_iam_member.gsa.service_account_id
-  description = "The service_id of the KSA binded to the GSA"
-}
