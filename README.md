@@ -50,7 +50,6 @@ As a first-time user of the Google Cloud Platform, I wanted to start off by foll
 * Created a CI/CD pipeline to push Master branch builds as Docker Images to the GCP Artifact Registry
 * Enabled and configured Auto-scaling of Cluster Nodes to promote Scalability
 * Created individual Cloud Storage buckets to store the generated `.tfstate` files from each Terraform module securely
-* Implemented a multi-stage Docker build to cut the final image size in half
 * Run a CloudSQL Proxy as a sidecar container for my app deployment
 
 In addition to the design choices I made for the GCP infrastructure and the GKE cluster, I made some choices regarding the rest of the project as well:
