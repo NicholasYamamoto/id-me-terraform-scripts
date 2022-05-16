@@ -9,6 +9,11 @@ terraform {
       source  = "hashicorp/helm"
       version = "2.5.1"
     }
+
+    newrelic = {
+      source  = "newrelic/newrelic"
+      version = "2.45.1"
+    }
   }
 }
 
@@ -20,4 +25,10 @@ provider "helm" {
       data.google_container_cluster.id-me-hello-world-app-k8s-cluster.master_auth[0].cluster_ca_certificate,
     )
   }
+}
+
+provider "newrelic" {
+  account_id = var.new_relic_account_id
+  api_key    = var.new_relic_user_api_key
+  region     = "US"
 }

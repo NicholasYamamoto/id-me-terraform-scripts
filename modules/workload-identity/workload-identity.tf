@@ -95,20 +95,3 @@ resource "google_project_iam_member" "gsa-artifactregistry-reader" {
   role    = "roles/artifactregistry.reader"
   member  = "serviceAccount:${google_service_account.cloud-sql-gsa.email}"
 }
-
-# resource "google_project_iam_member" "workload-identity-role" {
-#   project = var.project_id
-
-#   role   = "roles/iam.workloadIdentityUser"
-#   member = "serviceAccount:${var.project_id}.svc.id.goog[${var.k8s_namespace}/${var.k8s_service_account}]"
-# }
-
-# Creating the KSA and connecting it to the GSA created above
-# resource "kubernetes_service_account" "ksa" {
-#   metadata {
-#     name = var.k8s_service_account
-#     annotations = {
-#       "iam.gke.io/gcp-service-account" = "${google_service_account.gsa.account_id}@${var.project_id}.iam.gserviceaccount.com"
-#     }
-#   }
-# }

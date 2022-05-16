@@ -18,12 +18,12 @@ variable "app_name" {
   description = "The name of the application"
 }
 
-variable "machine_type" {
+variable "k8s_service_account" {
   type        = string
-  description = "The VM machine type to use"
+  description = "The name of the Kubernetes Service Account binded to a GSA"
 }
 
-variable "gke_node_pool" {
+variable "k8s_namespace" {
   type        = string
-  description = "The corresponding Node Pool in GKE"
+  description = "The namespace of the cluster"
 }
