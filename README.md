@@ -5,22 +5,22 @@ Terraform scripts for the ID.me take-home assignment.
 As part of the assignment, I was tasked with deploying my web application to GCP using Terraform, so naturally for this I decided to utilize the Google Kubernetes Engine (GKE) that GCP provides to create and manage a Kubernetes Cluster in my cloud infrastructure.
 
 This repository is broken up into four sections:
-* `/gke`
+* [`/gke`](https://github.com/NicholasYamamoto/id-me-terraform-scripts/tree/master/gke)
     * Creates a VPC configured with a private subnet
     * Creates a GKE Cluster
     * Creates a Workload Identity service account for Kubernetes to use to interact from the cluster to thanye GCP resources
     * Creates Cloud Storage buckets to house each of the generated `.tfstate` files from each module
 
-* `/workload-identity`
-      * Creates a Google Service Account and a Kubernetes Service Account
-      * Creates an IAM policy to restrict the roles of the GSA
-      * Binds the KSA to the GSA to allow it to "impersonate" it
-* `/web-app`
+* [`/workload-identity`](https://github.com/NicholasYamamoto/id-me-terraform-scripts/tree/master/workload-identity)
+    * Creates a Google Service Account and a Kubernetes Service Account
+    * Creates an IAM policy to restrict the roles of the GSA
+    * Binds the KSA to the GSA to allow it to "impersonate" it
+* [`/web-app`](https://github.com/NicholasYamamoto/id-me-terraform-scripts/tree/master/web-app)
     * Creates a Deployment object containing
         * The **id-me-hello-world-app**
         * A CloudSQL Proxy sidecar to communicate with the CloudSQL instance
     * Creates Kubernetes secrets to manage database credentials and the `rails_secret_key_base` required by the app
-* `/monitoring`
+* [`/monitoring`](https://github.com/NicholasYamamoto/id-me-terraform-scripts/tree/master/monitoring)
     * Deploys a Helm chart to create a Prometheus and Grafana deployment
     * Defines Prometheus rules to scrape the endpoints of nodes/pods/services in the cluster
     * Creates a link between the GCP infrastructure and a New Relic account to enable GCP resource and application monitoring
