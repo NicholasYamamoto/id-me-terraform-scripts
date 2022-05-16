@@ -16,9 +16,8 @@ resource "google_container_cluster" "primary" {
       disabled = false
     }
 
-    # Disabling GKE built-in one as I'll be using an Nginx Ingress controller instead
     http_load_balancing {
-      disabled = true
+      disabled = false
     }
 
   }
@@ -105,9 +104,61 @@ resource "google_service_account" "gke-sa" {
   project      = var.project_id
 }
 
-# Adding the GKE Service Account to the project
-resource "google_project_iam_member" "service-account" {
+# Granting Artifact Registry access to the GKE GSA
+resource "google_project_iam_member" "gke-gsa-artifactregistry-writer" {
   project = var.project_id
   role    = "roles/artifactregistry.writer"
   member  = "serviceAccount:${google_service_account.gke-sa.email}"
+}
+
+# Granting Cloud Storage access to the GKE GSA
+resource "google_project_iam_member" "gke-gsa-storage-admin" {
+  project = var.project_id
+  role    = "roles/storage.admin"
+  member  = "serviceAccount:${google_service_account.gke-sa.email}"
+}
+
+# Creating Cloud Storage buckets to securely store the .tfstate files of each module
+# Creating gke bucket
+resource "google_storage_bucket" "gke-bucket" {
+  name          = "gke-tfstate-bucket"
+  force_destroy = false
+  location      = "US"
+  storage_class = "STANDARD"
+  versioning {
+    enabled = true
+  }
+}
+
+# Creating workload-identity bucket
+resource "google_storage_bucket" "workload-identity-bucket" {
+  name          = "workload-identity-tfstate-bucket"
+  force_destroy = false
+  location      = "US"
+  storage_class = "STANDARD"
+  versioning {
+    enabled = true
+  }
+}
+
+# Creating web-app bucket
+resource "google_storage_bucket" "web-app-bucket" {
+  name          = "web-app-tfstate-bucket"
+  force_destroy = false
+  location      = "US"
+  storage_class = "STANDARD"
+  versioning {
+    enabled = true
+  }
+}
+
+# Creating monitoring bucket
+resource "google_storage_bucket" "monitoring-bucket" {
+  name          = "monitoring-tfstate-bucket"
+  force_destroy = false
+  location      = "US"
+  storage_class = "STANDARD"
+  versioning {
+    enabled = true
+  }
 }

@@ -11,7 +11,7 @@ resource "google_project_iam_binding" "new-relic-gsa-service-usage" {
   role    = "roles/serviceusage.serviceUsageConsumer"
 
   members = [
-    "serviceAccount:${var.new_relic_service_account}",
+    "serviceAccount:${var.new_relic_service_account}"
   ]
 }
 

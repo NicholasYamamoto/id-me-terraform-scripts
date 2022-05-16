@@ -1,4 +1,9 @@
 terraform {
+  backend "gcs" {
+    bucket = "workload-identity-tfstate-bucket"
+    prefix = "terraform/state"
+  }
+
   required_providers {
     google = {
       source  = "hashicorp/google"

@@ -15,5 +15,10 @@ output "kubernetes_cluster_name" {
 
 output "kubernetes_cluster_host" {
   value       = google_container_cluster.primary.endpoint
-  description = "The GKE cluster host"
+  description = "The GKE cluster host IP address"
+}
+
+output "google_service_account_email" {
+  value       = google_service_account.gke-sa.email
+  description = "The email address of the GKE GSA Service Account"
 }
