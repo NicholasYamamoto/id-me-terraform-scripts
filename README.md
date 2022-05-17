@@ -12,7 +12,7 @@ This repository is broken up into four sections:
     * Creates a GKE Cluster
     * Creates a Workload Identity service account for Kubernetes to use to interact from the cluster to any GCP resources
 
-* [`/gcp](https://github.com/NicholasYamamoto/id-me-terraform-scripts/tree/master/gcp)
+* [`/gcp`](https://github.com/NicholasYamamoto/id-me-terraform-scripts/tree/master/gcp)
     * Creates Cloud Storage buckets to store the generated `.tfstate` files from each module
     * Creates a Google Service Account and a Kubernetes Service Account
     * Creates an IAM policy to restrict the roles of the GSA
