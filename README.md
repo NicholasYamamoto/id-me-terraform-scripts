@@ -10,10 +10,10 @@ This repository is broken up into four sections:
 * [`/gke`](https://github.com/NicholasYamamoto/id-me-terraform-scripts/tree/master/gke)
     * Creates a VPC configured with a private subnet
     * Creates a GKE Cluster
-    * Creates a Workload Identity service account for Kubernetes to use to interact from the cluster to thanye GCP resources
-    * Creates Cloud Storage buckets to house each of the generated `.tfstate` files from each module
+    * Creates a Workload Identity service account for Kubernetes to use to interact from the cluster to any GCP resources
 
-* [`/workload-identity`](https://github.com/NicholasYamamoto/id-me-terraform-scripts/tree/master/workload-identity)
+* [`/gcp](https://github.com/NicholasYamamoto/id-me-terraform-scripts/tree/master/gcp)
+    * Creates Cloud Storage buckets to store the generated `.tfstate` files from each module
     * Creates a Google Service Account and a Kubernetes Service Account
     * Creates an IAM policy to restrict the roles of the GSA
     * Binds the KSA to the GSA to allow it to "impersonate" it
@@ -48,7 +48,7 @@ While my application is miniscule in scale, I felt it good to deploy a method to
 ## Design Choices
 As a first-time user of the Google Cloud Platform, I wanted to start off by following various best practices established by the GCP developers as well as the DevOps community. Some of the choices I made include:
 * Implemented Workload Identity for all Kubernetes services that need to interact with a GCP resource
-* Implemented the GKE cluster node pool to be Separately-managed, following GCP best practices
+* Configured the GKE cluster's node pool to be Separately-managed, following GCP best practices
 * Created a CI/CD pipeline to push Master branch builds as Docker Images to the GCP Artifact Registry
 * Enabled and configured Auto-scaling of Cluster Nodes to promote Scalability
 * Created individual Cloud Storage buckets to store the generated `.tfstate` files from each Terraform module securely

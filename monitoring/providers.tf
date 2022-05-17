@@ -1,4 +1,8 @@
 terraform {
+  backend "gcs" {
+    bucket = "monitoring-tfstate-bucket"
+    prefix = "terraform/state"
+  }
   required_providers {
     google = {
       source  = "hashicorp/google"
@@ -15,6 +19,14 @@ terraform {
       version = "2.45.1"
     }
   }
+}
+
+data "google_client_config" "provider" {}
+
+data "google_container_cluster" "id-me-hello-world-app-k8s-cluster" {
+  project  = var.project_id
+  name     = var.cluster_name
+  location = var.region
 }
 
 provider "helm" {

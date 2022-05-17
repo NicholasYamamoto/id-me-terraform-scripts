@@ -1,6 +1,6 @@
 terraform {
   backend "gcs" {
-    bucket = "id-me-hello-world-app-tfstate"
+    bucket = "gke-tfstate-bucket"
     prefix = "terraform/state"
   }
 
@@ -14,6 +14,14 @@ terraform {
       version = "2.11.0"
     }
   }
+}
+
+data "google_client_config" "provider" {}
+
+data "google_container_cluster" "id-me-hello-world-app-k8s-cluster" {
+  project  = var.project_id
+  name     = var.cluster_name
+  location = var.region
 }
 
 provider "google" {

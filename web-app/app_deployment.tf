@@ -3,6 +3,9 @@ resource "kubernetes_deployment" "app-deployment" {
   metadata {
     name      = "id-me-hello-world-app-deployment"
     namespace = var.k8s_namespace
+    labels = {
+      k8s_object = "id-me-hello-world-app-deployment"
+    }
   }
   spec {
     replicas = 1
@@ -15,7 +18,8 @@ resource "kubernetes_deployment" "app-deployment" {
     template {
       metadata {
         labels = {
-          app = "${var.app_name}"
+          app        = "${var.app_name}"
+          k8s_object = "id-me-hello-world-app-deployment"
         }
       }
 

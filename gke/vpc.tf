@@ -1,10 +1,30 @@
-# Enabling APIs needed to create the VPC
+# Enabling APIs needed by the project
 resource "google_project_service" "compute" {
   service = "compute.googleapis.com"
 }
 
 resource "google_project_service" "container" {
   service = "container.googleapis.com"
+}
+
+resource "google_project_service" "artifact-registry" {
+  service = "artifactregistry.googleapis.com"
+}
+
+resource "google_project_service" "sql-component" {
+  service = "sql-component.googleapis.com"
+}
+
+resource "google_project_service" "sql-admin" {
+  service = "sqladmin.googleapis.com"
+}
+
+resource "google_project_service" "cloud-storage" {
+  service = "storage-component.googleapis.com"
+}
+
+resource "google_project_service" "autoscaling" {
+  service = "autoscaling.googleapis.com"
 }
 
 # Creating the VPC
@@ -41,6 +61,7 @@ resource "google_compute_subnetwork" "private" {
   }
 }
 
+# Creating a new Cloud Router
 resource "google_compute_router" "router" {
   name    = "${var.app_name}-router"
   region  = var.region
@@ -59,12 +80,12 @@ resource "google_compute_router_nat" "nat" {
     source_ip_ranges_to_nat = ["ALL_IP_RANGES"]
   }
 
-  nat_ips = [google_compute_address.nat.self_link]
+  nat_ips = [google_compute_address.external-nat.self_link]
 }
 
-# Creating a service to allocate an External IP address
-resource "google_compute_address" "nat" {
-  name         = "${var.app_name}-external-ip-address-allocater"
+# Creating a NAT service to allocate external IP addresses
+resource "google_compute_address" "external-nat" {
+  name         = "${var.app_name}-external-nat"
   address_type = "EXTERNAL"
   network_tier = "PREMIUM"
 

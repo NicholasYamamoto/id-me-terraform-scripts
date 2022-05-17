@@ -1,12 +1,3 @@
-data "google_client_config" "provider" {}
-
-data "google_container_cluster" "id-me-hello-world-app-k8s-cluster" {
-  project  = var.project_id
-  name     = var.cluster_name
-  location = var.region
-}
-
-
 # Creating a GSA to bind to a KSA to provide Workload Identity Federation
 resource "google_service_account" "cloud-sql-gsa" {
   account_id = "${var.app_name}-sql-gsa"

@@ -67,3 +67,9 @@ variable "db_instance_connection_name" {
   description = "The full connection name for the CloudSQL instance"
   sensitive   = true
 }
+
+variable "load_balancer_ip" {
+  type        = string
+  description = "The reserved external IP address for the LoadBalancer service"
+  sensitive   = true
+}
