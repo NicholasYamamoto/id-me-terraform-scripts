@@ -1,9 +1,4 @@
 terraform {
-  backend "gcs" {
-    bucket = "monitoring-tfstate-bucket"
-    prefix = "terraform/state"
-  }
-
   required_providers {
     google = {
       source  = "hashicorp/google"

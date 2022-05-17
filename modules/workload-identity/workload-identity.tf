@@ -95,4 +95,3 @@ resource "google_project_iam_member" "gsa-artifactregistry-reader" {
   role    = "roles/artifactregistry.reader"
   member  = "serviceAccount:${google_service_account.cloud-sql-gsa.email}"
 }
-

@@ -1,16 +1,24 @@
 terraform {
-
   backend "gcs" {
-    bucket = "web-app-tfstate-bucket"
+    bucket = "id-me-hello-world-app-tfstate"
     prefix = "terraform/state"
   }
 
   required_providers {
+    google = {
+      source  = "hashicorp/google"
+      version = "4.20.0"
+    }
     kubernetes = {
       source  = "hashicorp/kubernetes"
       version = "2.11.0"
     }
   }
+}
+
+provider "google" {
+  project = var.project_id
+  region  = var.region
 }
 
 provider "kubernetes" {

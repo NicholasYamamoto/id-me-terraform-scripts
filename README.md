@@ -2,7 +2,9 @@
 
 Terraform scripts for the ID.me take-home assignment.
 
-As part of the assignment, I was tasked with deploying my web application to GCP using Terraform, so naturally for this I decided to utilize the Google Kubernetes Engine (GKE) that GCP provides to create and manage a Kubernetes Cluster in my cloud infrastructure.
+As part of the assignment, I was tasked with deploying my web application to GCP using Terraform, so naturally for this I
+decided to utilize the Google Kubernetes Engine (GKE) that GCP provides to create and manage a Kubernetes Cluster in my
+cloud infrastructure.
 
 This repository is broken up into four sections:
 * [`/gke`](https://github.com/NicholasYamamoto/id-me-terraform-scripts/tree/master/gke)
