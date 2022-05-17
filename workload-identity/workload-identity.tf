@@ -68,6 +68,13 @@ resource "google_project_iam_binding" "access-cloud-sql" {
 # call the same Resource block over and over...
 # Reference: https://github.com/hashicorp/terraform-provider-google/issues/3478#issuecomment-485863424
 
+# Granting access to GCS buckets
+resource "google_project_iam_member" "gsa-storage-admin" {
+  project = var.project_id
+  role    = "roles/storage.admin"
+  member  = "serviceAccount:${google_service_account.cloud-sql-gsa.email}"
+}
+
 # Granting access to Kubernetes Secrets
 resource "google_project_iam_member" "gsa-secretmanager-admin" {
   project = var.project_id
