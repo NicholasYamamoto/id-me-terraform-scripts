@@ -17,7 +17,7 @@ resource "google_container_cluster" "primary" {
     }
 
     http_load_balancing {
-      disabled = false
+      disabled = true
     }
 
   }
@@ -104,17 +104,17 @@ resource "google_service_account" "gke-sa" {
   project      = var.project_id
 }
 
-# Granting Artifact Registry access to the GKE GSA
-resource "google_project_iam_member" "gke-gsa-artifactregistry-writer" {
-  project = var.project_id
-  role    = "roles/artifactregistry.writer"
-  member  = "serviceAccount:${google_service_account.gke-sa.email}"
-}
-
 # Granting Cloud Storage access to the GKE GSA
 resource "google_project_iam_member" "gke-gsa-storage-admin" {
   project = var.project_id
   role    = "roles/storage.admin"
+  member  = "serviceAccount:${google_service_account.gke-sa.email}"
+}
+
+# Adding the GKE Service Account to the project
+resource "google_project_iam_member" "service-account" {
+  project = var.project_id
+  role    = "roles/artifactregistry.writer"
   member  = "serviceAccount:${google_service_account.gke-sa.email}"
 }
 
